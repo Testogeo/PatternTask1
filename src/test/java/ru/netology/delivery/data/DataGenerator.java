@@ -7,34 +7,48 @@ import lombok.val;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.Random;
 
 public class DataGenerator {
     private DataGenerator() {
     }
 
-    public static String generateDate(int shift) {
+        public static String generateDate(int shift) {
         // TODO: добавить логику для объявления переменной date и задания её значения, для генерации строки с датой
         // Вы можете использовать класс LocalDate и его методы для получения и форматирования даты
-        return date;
+        return LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
+//    public static String generateCity() {
+//        // TODO: добавить логику для объявления переменной city и задания её значения, генерацию можно выполнить
+//        // с помощью Faker, либо используя массив валидных городов и класс Random
+//        List<String> list = Arrays.asList("Архангельск", "Астрахань", "Барнаул", "Владикавказ",
+//                "Горно-Алтайск", "Йошкар-Ола", "Казань", "Калининград", "Калуга", "Краснодар", "Махачкала",
+//                "Нарьян-Мар", "Салехард", "Самара", "Саранск", "Саратов", "Хабаровск", "Ханты-Мансийск", "Южно-Сахалинск",
+//                "Великий Новгород", "Владивосток", "Владимир", "Вологда", "Рязань", "Биробиджан", "Чебоксары", "Москва",
+//                "Санкт-Петербург", "Ульяновск", "Симферополь", "Ростов-на-Дону");
+//        Random rand = new Random();
+//        String city = list.get(rand.nextInt(list.size()));
+//        return city;
+//    }
 
     public static String generateCity(String locale) {
         // TODO: добавить логику для объявления переменной city и задания её значения, генерацию можно выполнить
         // с помощью Faker, либо используя массив валидных городов и класс Random
-        return city;
+        Faker faker = new Faker(new Locale(locale));
+        return faker.address().city();
     }
 
     public static String generateName(String locale) {
         // TODO: добавить логику для объявления переменной name и задания её значения, для генерации можно
         // использовать Faker
-        return name;
+        Faker faker = new Faker(new Locale(locale));
+        return faker.name().fullName();
     }
 
     public static String generatePhone(String locale) {
         // TODO: добавить логику для объявления переменной phone и задания её значения, для генерации можно
         // использовать Faker
-        return phone;
+        Faker faker = new Faker(new Locale(locale));
+        return faker.phoneNumber().phoneNumber();
     }
 
     public static class Registration {
@@ -44,7 +58,7 @@ public class DataGenerator {
         public static UserInfo generateUser(String locale) {
             // TODO: добавить логику для создания пользователя user с использованием методов generateCity(locale),
             // generateName(locale), generatePhone(locale)
-            return user;
+            return new UserInfo (generateCity(locale), generateName(locale), generatePhone(locale));
         }
     }
 
